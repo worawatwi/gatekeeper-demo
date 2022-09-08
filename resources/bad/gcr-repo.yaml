@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: wrong-repo-app
+  name: wrong-repo-app
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: wrong-repo-app
+  template:
+    metadata:
+      labels:
+        run: wrong-repo-app
+    spec:
+      containers:
+      - image: k8s.gcr.io/serve_hostname:v1.4
+        name: hostname
+        ports:
+          - containerPort: 9376
+            protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "30Mi"
